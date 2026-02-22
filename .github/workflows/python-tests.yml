@@ -1,17 +1,19 @@
-name: pytest
+name: Python Tests
 on:
   push:
+    branches: [main, master]
   pull_request:
-
+    branches: [main, master]
 jobs:
-  run-tests:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out repository code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
@@ -20,5 +22,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run pytest
-        run: pytest
+      - name: Run tests with pytest
+        run: |
+          pytest -v
